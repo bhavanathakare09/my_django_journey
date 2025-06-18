@@ -37,9 +37,6 @@ def monthly_challenge_number(request, month):
     redirect_path = reverse("month-challenge" , args=[redirtect_request])
     return HttpResponseRedirect(redirect_path)
     
-    
-   
-
 def monthlyChallenge(request, month):
     try:
         challenge_text = challenges_dict[month]
@@ -48,6 +45,3 @@ def monthlyChallenge(request, month):
         return HttpResponse(responce_data)
     except:
         return HttpResponseNotFound("<h1>Challenge for this month does not exist.</h1>")
-
-
-
