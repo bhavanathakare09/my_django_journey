@@ -6,5 +6,3 @@ urlpatterns = [
     path("<int:month>", views.monthly_challenge_number),
     path("<str:month>", views.monthlyChallenge, name="month-challenge"),  
 ]
-
-

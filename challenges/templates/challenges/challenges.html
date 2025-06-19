@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Montly Challenges</title>
-</head>
-<body>
-   <h1>This Month Challenge</h1>
-   <h2>Walk for atleast 20 Minutes</h2>
-<a href="{index_path}">Go back to index</a>
-</body>
-</html>
+{% extends "base.html" %}
+
+
+{% block page_title %}
+    {{ month_name|title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ month_name|title }} Challenge</h1>
+    {% if text %}
+        <h2>{{ text|capfirst }}</h2>
+    {% else %}
+        <h2>{{ month_name|title }} month text is not available</h2>
+    {% endif %}
+    <p>{{ challenge_text }}</p>
+    <a href="{{ index_path}}">Go back to index</a>
+{% endblock %}

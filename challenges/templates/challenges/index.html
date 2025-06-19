@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block page_title %}
+All Month Challenges Title
+{% endblock %}
+
+{%block content %}
+    <h1>All months Challenges</h1>
+    <ul>
+        {% for month in months %}
+            <li>
+                <a href="{% url 'month-challenge' month %}">
+                    {{ month|title }}
+                </a>  
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+

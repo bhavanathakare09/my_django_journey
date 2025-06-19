@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-from django.template.loader import render_to_string
+
 
 
 # Create your views here.
 
 challenges_dict = {
-    "january": "This is January",
+    "january": "this is January",
     "february": "This is February",
     "march": "This is March",
     "april": "This is April",
@@ -18,19 +18,20 @@ challenges_dict = {
     "september": "This is September",
     "october": "This is October",
     "november": "This is November",
-    "december": "This is December"
+    "december": None
 }
 
 def index(request):
     months = list(challenges_dict.keys())
-    list_items = ""
-    for month in months:
-        capitalized_month = month.capitalize()
-        month_path = reverse("month-challenge", args =[month])
-        list_items += f"<li><a href = \"{month_path}\">{capitalized_month}</a></li>"
-    responce_data = f"<ul>{list_items}</ul>"   
-    return HttpResponse(responce_data)
-        
+    # list_items = ""
+    # for month in months:
+    #     month_path = reverse("month-challenge", args =[month])
+    #     list_items += f"<li><a href = \"{month_path}\">{months}</a></li>"
+    # responce_data = f"<ul>{list_items}</ul>"   
+    # return HttpResponse(responce_data)
+    return render(request, "challenges/index.html", {
+        "months": months,
+    })
 def monthly_challenge_number(request, month):
     months = list(challenges_dict.keys())
     if month > len(months):
@@ -40,10 +41,16 @@ def monthly_challenge_number(request, month):
     return HttpResponseRedirect(redirect_path)
     
 def monthlyChallenge(request, month):
-    # try:
-        challenge_text = challenges_dict[month]
+    try:
+        month_lower = month.lower()
+        challenge_text = challenges_dict[month_lower]
         index_path = reverse("index")
-        responce_data = render_to_string("challenges/challenges.html")
-        return HttpResponse(responce_data)
-    # except:
+        return render(request, "challenges/challenges.html",{
+            "text": challenge_text,
+            "month_name": month,
+            "index_path": index_path
+        })
+        # responce_data = render_to_string("challenges/challenges.html")
+        # return HttpResponse(responce_data)
+    except:
         return HttpResponseNotFound("<h1>Challenge for this month does not exist.</h1>")
