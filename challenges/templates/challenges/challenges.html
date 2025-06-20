@@ -1,17 +1,22 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block page_title %}
     {{ month_name|title }}
 {% endblock %}
+{% block css_files %}
+    <link rel = "stylesheet" href = "{% static 'challenges/challenges.css' %}">
+{% endblock %}
 
 {% block content %}
+
+    {% include "challenges/includes/header.html"%}
+    
     <h1>{{ month_name|title }} Challenge</h1>
     {% if text %}
         <h2>{{ text|capfirst }}</h2>
     {% else %}
         <h2>{{ month_name|title }} month text is not available</h2>
     {% endif %}
-    <p>{{ challenge_text }}</p>
-    <a href="{{ index_path}}">Go back to index</a>
+   
 {% endblock %}
